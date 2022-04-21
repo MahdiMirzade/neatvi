@@ -13,11 +13,13 @@ static struct filetype {
 	{"tex", "\\.tex$"},				/* tex */
 	{"msg", "letter$|mbox$|mail$"},			/* email */
 	{"mk", "Makefile$|makefile$|\\.mk$"},		/* makefile */
-	{"sh", "\\.sh$"},				/* shell script */
+	{"sh", "\\.(sh|[a-zA-Z0-9]+shrc)$"},		/* shell script */
 	{"py", "\\.py$"},				/* python */
 	{"bib", "bib$"},				/* refer */
 	{"nm", "\\.nm$"},				/* neatmail */
-	{"diff", "\\.(patch|diff)$"}			/* diff */
+	{"diff", "\\.(patch|diff)$"},			/* diff */
+	{"html", "\\.html$"},				/* html */
+	{"css", "\\.css$"},				/* stylesheets */
 };
 
 /* syntax highlighting patterns */
@@ -115,6 +117,29 @@ static struct highlight {
 	{"---", {8 | SYN_BD, 4, 1}, "^(\".*\").*(\\[[wr]\\]).*$"},
 	{"---", {8 | SYN_BD, 4, 4}, "^(\".*\").*(L[0-9]+) +(C[0-9]+).*$"},
 	{"---", {8 | SYN_BD}, "^.*$"},
+
+	/* html */
+	{"html", {2}, "<!.*>"},
+	{"html", {5}, "<[a-zA-Z0-9'\"\\/\\\\\\s=-]*>"},
+	{"html", {4}, "\\\"[a-zA-Z0-9.\\/\\\\\\s=-]*\\\""},
+
+	/* stylesheets */
+	{"css", {2 | SYN_IT}, "/\\*([^*]|\\*+[^*/])*\\*+/"},
+	{"css", {3}, ":[a-zA-Z]*"},
+	{"css", {5}, "\\<(html|head|body|header|footer|a|p|h1|h2|h3|h4|h5|h6|h7|div|ul|li|dl|dt|q)\\>"}, 
+	{"css", {5}, "\\<(pre|code|blockquote|i|u|input|button|img|audio|video|source|tag)\\>"},
+	{"css", {5}, "\\<(table|thead|tbody|tfoot|td|tr)\\>"},
+	{"css", {4}, "\\<(all|animation[a-zA-Z-]*|align[a-zA-Z-]*|background[a-zA-Z-]*)\\>"},
+	{"css", {4}, "\\<(backface[a-zA-Z-]*|border[a-zA-Z-]*|box[a-zA-Z-]*|column[a-zA-Z-]*)\\>"},
+	{"css", {4}, "\\<(counter[a-zA-Z-]*|flex[a-zA-Z-]*|font[a-zA-Z-]*|list[a-zA-Z-]*)\\>"},
+	{"css", {4}, "\\<(margin[a-zA-Z-]*|min-[a-zA-Z-]*|max[a-zA-Z-]*|nav-[a-zA-Z-]*)\\>"},
+	{"css", {4}, "\\<(padding[a-zA-Z-]*|outline[a-zA-Z-]*|page[a-zA-Z-]*|text[a-zA-Z-]*)\\>"},
+	{"css", {4}, "\\<(transform[a-zA-Z-]*|transition[a-zA-Z-]*|word[a-zA-Z-]*)\\>"},
+	{"css", {4}, "\\<(color|cursor|direction|display|empty-cells|filter|float|hanging-punctuation)\\>"},
+	{"css", {4}, "\\<(height|justify-content|left|letter-spacing|line-height|order|overflow)\\>"},
+	{"css", {4}, "\\<(perspective|perspective-origin|position|quotes|resize|right|tab-size)\\>"},
+	{"css", {4}, "\\<(table-layout|top|unicode-bidi|vertical-align|visibility|white-space)\\>"},
+	{"css", {4}, "\\<(width|z-index)\\>"},
 };
 
 /* how to hightlight current line (hll option) */

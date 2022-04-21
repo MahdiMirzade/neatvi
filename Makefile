@@ -13,5 +13,14 @@ conf.o: conf.h
 	$(CC) -c $(CFLAGS) $<
 vi: $(OBJS)
 	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+
+install: all
+	mkdir -p /usr/local/bin
+	cp -f vi /usr/local/bin
+	chmod 755 /usr/local/bin/vi
+
+uninstall: all
+	rm -f /usr/local/bin/vi
+
 clean:
 	rm -f *.o vi
